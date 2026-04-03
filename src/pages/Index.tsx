@@ -75,18 +75,13 @@ const NAV_ITEMS = [
 
 function CloudLogo({ size = 32 }: { size?: number }) {
   return (
-    <svg width={size} height={Math.round(size * 0.65)} viewBox="0 0 80 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M64 44H16C9.4 44 4 38.6 4 32C4 26.2 8.1 21.4 13.5 20.2C13.2 19.2 13 18.1 13 17C13 10.4 18.4 5 25 5C27.8 5 30.4 5.9 32.5 7.5C35.1 3.7 39.5 1 44.5 1C52.5 1 59 7.5 59 15.5C59 16.2 58.9 16.9 58.8 17.5C60.3 17.2 61.9 17 63.5 17C70.4 17 76 22.6 76 29.5C76 37.1 70.6 44 64 44Z"
-        fill="url(#cloudGrad)"
-      />
-      <defs>
-        <linearGradient id="cloudGrad" x1="4" y1="1" x2="76" y2="44" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#1a6fd8" />
-          <stop offset="1" stopColor="#29b6f6" />
-        </linearGradient>
-      </defs>
-    </svg>
+    <img
+      src="https://cdn.poehali.dev/projects/0eabc405-662c-4f7e-8f7b-7d2da46e16c3/bucket/e5ca8753-e679-4c2f-9056-08630433dea4.png"
+      alt="Облако"
+      width={size * 2.5}
+      height={size}
+      style={{ objectFit: "contain" }}
+    />
   );
 }
 
@@ -150,9 +145,8 @@ export default function Index() {
       {/* NAVBAR */}
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-border shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <button onClick={() => navigate("home")} className="flex items-center gap-2 group">
+          <button onClick={() => navigate("home")} className="flex items-center group">
             <CloudLogo size={36} />
-            <span className="text-xl font-bold text-gradient tracking-tight">Облако</span>
           </button>
 
           <nav className="hidden md:flex items-center gap-8">
@@ -609,33 +603,47 @@ export default function Index() {
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <CloudLogo size={28} />
-                <span className="text-lg font-bold">Облако</span>
               </div>
               <p className="text-white/50 text-sm max-w-xs">Техника и гаджеты нового поколения для вашей жизни в облаке.</p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
               <div>
                 <p className="font-semibold text-sm mb-3 text-white/80">Магазин</p>
-                {["Каталог", "Новинки", "Акции", "Гарантия"].map((l) => (
-                  <p key={l} className="text-white/40 text-sm py-0.5 hover:text-white/80 cursor-pointer transition-colors">{l}</p>
+                {[
+                  { label: "Каталог", section: "catalog" },
+                  { label: "Новинки", section: "catalog" },
+                  { label: "Акции", section: "catalog" },
+                  { label: "Гарантия", section: "about" },
+                ].map((l) => (
+                  <button key={l.label} onClick={() => navigate(l.section)} className="block text-white/40 text-sm py-0.5 hover:text-white/80 transition-colors text-left">{l.label}</button>
                 ))}
               </div>
               <div>
                 <p className="font-semibold text-sm mb-3 text-white/80">Компания</p>
-                {["О нас", "Карьера", "Пресса", "Контакты"].map((l) => (
-                  <p key={l} className="text-white/40 text-sm py-0.5 hover:text-white/80 cursor-pointer transition-colors">{l}</p>
+                {[
+                  { label: "О нас", section: "about" },
+                  { label: "Карьера", section: "about" },
+                  { label: "Пресса", section: "about" },
+                  { label: "Контакты", section: "contacts" },
+                ].map((l) => (
+                  <button key={l.label} onClick={() => navigate(l.section)} className="block text-white/40 text-sm py-0.5 hover:text-white/80 transition-colors text-left">{l.label}</button>
                 ))}
               </div>
               <div>
                 <p className="font-semibold text-sm mb-3 text-white/80">Поддержка</p>
-                {["Помощь", "Доставка", "Возврат", "FAQ"].map((l) => (
-                  <p key={l} className="text-white/40 text-sm py-0.5 hover:text-white/80 cursor-pointer transition-colors">{l}</p>
+                {[
+                  { label: "Помощь", section: "contacts" },
+                  { label: "Доставка", section: "contacts" },
+                  { label: "Возврат", section: "contacts" },
+                  { label: "FAQ", section: "contacts" },
+                ].map((l) => (
+                  <button key={l.label} onClick={() => navigate(l.section)} className="block text-white/40 text-sm py-0.5 hover:text-white/80 transition-colors text-left">{l.label}</button>
                 ))}
               </div>
             </div>
           </div>
           <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p className="text-white/30 text-sm">© 2024 Облако. Все права защищены.</p>
+            <p className="text-white/30 text-sm">© 2026 Облако. Все права защищены.</p>
             <p className="text-white/20 text-xs">Сделано с ☁️ в России</p>
           </div>
         </div>
