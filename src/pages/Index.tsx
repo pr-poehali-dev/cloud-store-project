@@ -80,8 +80,29 @@ function CloudLogo({ size = 32 }: { size?: number }) {
       alt="Облако"
       width={size * 2.5}
       height={size}
-      style={{ objectFit: "contain" }}
+      style={{
+        objectFit: "contain",
+        filter: "brightness(0) saturate(100%) invert(32%) sepia(80%) saturate(600%) hue-rotate(195deg) brightness(95%) contrast(105%)",
+      }}
     />
+  );
+}
+
+function CloudShape({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 200 130" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+      <path
+        d="M160 110H40C23.4 110 10 96.6 10 80C10 65.5 20.2 53.5 33.8 50.5C33.1 48 32.5 45.3 32.5 42.5C32.5 26 46 13 62.5 13C69.5 13 76 15.2 81.2 19C87.8 9.2 98.8 3 111.2 3C131.2 3 147.5 19.3 147.5 39.3C147.5 41 147.4 42.7 147.1 44.4C150.8 43.6 154.6 43.2 158.7 43.2C175.7 43.2 190 57.5 190 74.5C190 93.8 176.6 110 160 110Z"
+        fill="url(#heroCloudGrad)"
+        opacity="0.95"
+      />
+      <defs>
+        <linearGradient id="heroCloudGrad" x1="10" y1="3" x2="190" y2="110" gradientUnits="userSpaceOnUse">
+          <stop stopColor="hsl(213, 90%, 55%)" />
+          <stop offset="1" stopColor="hsl(199, 80%, 65%)" />
+        </linearGradient>
+      </defs>
+    </svg>
   );
 }
 
@@ -237,7 +258,7 @@ export default function Index() {
                   </div>
                 </div>
                 <div className="flex-1 flex justify-center animate-float">
-                  <CloudLogo size={220} />
+                  <CloudShape className="w-72 lg:w-96 drop-shadow-2xl" />
                 </div>
               </div>
             </section>
@@ -337,7 +358,11 @@ export default function Index() {
                   </p>
                 </div>
                 <div className="cloud-gradient rounded-3xl p-12 flex items-center justify-center">
-                  <CloudLogo size={140} />
+                  <img
+                    src="https://cdn.poehali.dev/projects/0eabc405-662c-4f7e-8f7b-7d2da46e16c3/bucket/e5ca8753-e679-4c2f-9056-08630433dea4.png"
+                    alt="Облако"
+                    style={{ width: 280, objectFit: "contain", filter: "brightness(0) invert(1)" }}
+                  />
                 </div>
               </div>
 
