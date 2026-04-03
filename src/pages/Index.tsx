@@ -12,59 +12,9 @@ const PRODUCTS = [
     specs: { "Мощность": "20 Вт", "Bluetooth": "5.2", "Батарея": "12 ч" },
     badge: "Хит",
   },
-  {
-    id: 2,
-    name: "Облако Book Pro",
-    category: "Компьютеры",
-    price: 89990,
-    image: "https://cdn.poehali.dev/projects/0eabc405-662c-4f7e-8f7b-7d2da46e16c3/files/1d8d81aa-c831-42a6-af65-8f0de37f5382.jpg",
-    description: "Ультратонкий ноутбук с облачной синхронизацией и 18 часами работы",
-    specs: { "Процессор": "M3 Ultra", "ОЗУ": "32 ГБ", "Дисплей": "14\"" },
-    badge: "Новинка",
-  },
-  {
-    id: 3,
-    name: "Облако Buds Air",
-    category: "Аудио",
-    price: 5490,
-    image: "https://cdn.poehali.dev/projects/0eabc405-662c-4f7e-8f7b-7d2da46e16c3/files/49ad456c-231e-4ec4-aa26-558c31a17a53.jpg",
-    description: "Беспроводные наушники с активным шумоподавлением и кристальным звуком",
-    specs: { "ANC": "Активное", "Батарея": "30 ч", "Влагозащита": "IPX5" },
-    badge: null,
-  },
-  {
-    id: 4,
-    name: "Облако Watch S2",
-    category: "Носимые",
-    price: 14990,
-    image: "https://cdn.poehali.dev/projects/0eabc405-662c-4f7e-8f7b-7d2da46e16c3/files/e59e2af5-0a8d-48e6-9041-2b8ac5a5f14f.jpg",
-    description: "Смарт-часы с мониторингом здоровья и стильным облачным дизайном",
-    specs: { "Дисплей": "AMOLED", "Датчики": "8 типов", "GPS": "Есть" },
-    badge: null,
-  },
-  {
-    id: 5,
-    name: "Облако Phone 15",
-    category: "Смартфоны",
-    price: 59990,
-    image: "https://cdn.poehali.dev/projects/0eabc405-662c-4f7e-8f7b-7d2da46e16c3/files/71652882-3216-435c-8de7-4f5e82df12ed.jpg",
-    description: "Флагманский смартфон с камерой 200 МП и облачным хранилищем 1 ТБ",
-    specs: { "Камера": "200 МП", "Батарея": "6000 мАч", "Экран": "6.7\"" },
-    badge: "Топ продаж",
-  },
-  {
-    id: 6,
-    name: "Облако Keys Pro",
-    category: "Компьютеры",
-    price: 12490,
-    image: "https://cdn.poehali.dev/projects/0eabc405-662c-4f7e-8f7b-7d2da46e16c3/files/38673532-00fc-4d44-96d3-b049b98be686.jpg",
-    description: "Механическая беспроводная клавиатура с тактильными переключателями",
-    specs: { "Переключатели": "Blue Cloud", "Bluetooth": "5.3", "Батарея": "3 мес" },
-    badge: null,
-  },
 ];
 
-const CATEGORIES = ["Все", "Смартфоны", "Компьютеры", "Аудио", "Носимые"];
+const CATEGORIES = ["Все", "Аудио"];
 
 const NAV_ITEMS = [
   { id: "home", label: "Главная" },
@@ -73,17 +23,19 @@ const NAV_ITEMS = [
   { id: "contacts", label: "Контакты" },
 ];
 
-function CloudLogo({ size = 32 }: { size?: number }) {
+const LOGO_URL = "https://cdn.poehali.dev/projects/0eabc405-662c-4f7e-8f7b-7d2da46e16c3/bucket/e5ca8753-e679-4c2f-9056-08630433dea4.png";
+
+function CloudLogo({ size = 32, variant = "dark" }: { size?: number; variant?: "dark" | "white" }) {
+  const filter = variant === "white"
+    ? "brightness(0) invert(1)"
+    : "brightness(0) saturate(100%) invert(27%) sepia(10%) saturate(800%) hue-rotate(185deg) brightness(70%) contrast(95%)";
   return (
     <img
-      src="https://cdn.poehali.dev/projects/0eabc405-662c-4f7e-8f7b-7d2da46e16c3/bucket/e5ca8753-e679-4c2f-9056-08630433dea4.png"
+      src={LOGO_URL}
       alt="Облако"
       width={size * 2.5}
       height={size}
-      style={{
-        objectFit: "contain",
-        filter: "brightness(0) saturate(100%) invert(32%) sepia(80%) saturate(600%) hue-rotate(195deg) brightness(95%) contrast(105%)",
-      }}
+      style={{ objectFit: "contain", filter }}
     />
   );
 }
@@ -267,10 +219,10 @@ export default function Index() {
             <section className="bg-white border-y border-border py-12">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-2 lg:grid-cols-4 gap-8">
                 {[
-                  { value: "12+", label: "Лет на рынке" },
                   { value: "2М+", label: "Довольных клиентов" },
                   { value: "50+", label: "Устройств в линейке" },
-                  { value: "30+", label: "Стран присутствия" },
+                  { value: "200+", label: "Тестов качества" },
+                  { value: "5 лет", label: "Гарантия" },
                 ].map((stat) => (
                   <div key={stat.label} className="text-center">
                     <div className="text-4xl font-black text-gradient mb-1">{stat.value}</div>
@@ -295,7 +247,7 @@ export default function Index() {
                 </button>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {PRODUCTS.slice(0, 3).map((product) => (
+                {PRODUCTS.map((product) => (
                   <ProductCard
                     key={product.id}
                     product={product}
@@ -348,10 +300,10 @@ export default function Index() {
                 <div>
                   <h2 className="text-3xl font-black text-cloud-dark mb-6">Технологии без границ</h2>
                   <p className="text-muted-foreground leading-relaxed mb-4">
-                    Облако — российская компания-производитель умных устройств, основанная в 2012 году. Мы верим, что технологии должны быть простыми, красивыми и объединёнными в единую экосистему.
+                    Облако — производитель умных устройств нового поколения. Мы верим, что технологии должны быть простыми, красивыми и объединёнными в единую экосистему.
                   </p>
                   <p className="text-muted-foreground leading-relaxed mb-4">
-                    Наши инженеры и дизайнеры работают в Москве и Санкт-Петербурге. Каждое устройство проходит 200+ тестов качества перед выпуском. Мы не гонимся за количеством — мы создаём идеальные устройства.
+                    Каждое устройство проходит 200+ тестов качества перед выпуском. Мы не гонимся за количеством — мы создаём идеальные устройства.
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
                     Экосистема Облако объединяет все ваши устройства: смартфон синхронизируется с часами, ноутбук подхватывает музыку с колонки. Всё — в одном облаке.
@@ -364,20 +316,6 @@ export default function Index() {
                     style={{ width: 280, objectFit: "contain", filter: "brightness(0) invert(1)" }}
                   />
                 </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                {[
-                  { year: "2012", event: "Основание компании в Москве" },
-                  { year: "2015", event: "Первый смартфон Облако Phone" },
-                  { year: "2019", event: "Запуск облачной экосистемы" },
-                  { year: "2024", event: "2 миллиона довольных клиентов" },
-                ].map((item) => (
-                  <div key={item.year} className="bg-white border border-border rounded-2xl p-6">
-                    <div className="text-3xl font-black text-gradient mb-2">{item.year}</div>
-                    <p className="text-sm text-muted-foreground">{item.event}</p>
-                  </div>
-                ))}
               </div>
 
               <div className="cloud-gradient rounded-3xl p-10 text-white text-center">
@@ -562,7 +500,6 @@ export default function Index() {
                   <h2 className="text-2xl font-black text-cloud-dark mb-8">Мы всегда на связи</h2>
                   <div className="flex flex-col gap-4">
                     {[
-                      { icon: "MapPin", title: "Адрес", text: "Москва, ул. Технологическая, 12" },
                       { icon: "Phone", title: "Телефон", text: "+7 (800) 555-CLOUD" },
                       { icon: "Mail", title: "Email", text: "hello@oblako.ru" },
                       { icon: "Clock", title: "Режим работы", text: "Пн–Пт: 9:00–20:00" },
@@ -580,41 +517,7 @@ export default function Index() {
                   </div>
                 </div>
 
-                <div className="bg-white border border-border rounded-3xl p-8">
-                  <h3 className="text-xl font-black text-cloud-dark mb-6">Написать нам</h3>
-                  <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
-                    <div>
-                      <label className="text-sm font-medium text-foreground mb-1.5 block">Имя</label>
-                      <input
-                        type="text"
-                        placeholder="Ваше имя"
-                        className="w-full border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
-                      <input
-                        type="email"
-                        placeholder="you@example.com"
-                        className="w-full border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium text-foreground mb-1.5 block">Сообщение</label>
-                      <textarea
-                        rows={4}
-                        placeholder="Расскажите, чем мы можем помочь..."
-                        className="w-full border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all resize-none"
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      className="cloud-gradient text-white py-3 rounded-xl font-semibold hover:opacity-90 transition-all"
-                    >
-                      Отправить сообщение
-                    </button>
-                  </form>
-                </div>
+                <ContactForm />
               </div>
             </div>
           </div>
@@ -627,7 +530,7 @@ export default function Index() {
           <div className="flex flex-col md:flex-row items-start justify-between gap-8 mb-10">
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <CloudLogo size={28} />
+                <CloudLogo size={28} variant="white" />
               </div>
               <p className="text-white/50 text-sm max-w-xs">Техника и гаджеты нового поколения для вашей жизни в облаке.</p>
             </div>
@@ -667,9 +570,8 @@ export default function Index() {
               </div>
             </div>
           </div>
-          <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="border-t border-white/10 pt-6 flex items-center justify-center">
             <p className="text-white/30 text-sm">© 2026 Облако. Все права защищены.</p>
-            <p className="text-white/20 text-xs">Сделано с ☁️ в России</p>
           </div>
         </div>
       </footer>
@@ -772,6 +674,97 @@ export default function Index() {
             </button>
           </div>
         </div>
+      )}
+    </div>
+  );
+}
+
+function ContactForm() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus("sending");
+    try {
+      const res = await fetch("https://functions.poehali.dev/46b2abfd-821a-4f8a-aec3-512e0725c36c", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
+      });
+      if (res.ok) {
+        setStatus("ok");
+        setName(""); setEmail(""); setMessage("");
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  return (
+    <div className="bg-white border border-border rounded-3xl p-8">
+      <h3 className="text-xl font-black text-cloud-dark mb-6">Написать нам</h3>
+      {status === "ok" ? (
+        <div className="text-center py-10">
+          <div className="w-14 h-14 cloud-gradient rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <Icon name="Check" size={24} className="text-white" />
+          </div>
+          <p className="font-bold text-cloud-dark mb-1">Сообщение отправлено!</p>
+          <p className="text-muted-foreground text-sm">Мы ответим вам в ближайшее время.</p>
+          <button onClick={() => setStatus("idle")} className="mt-4 text-primary text-sm font-medium hover:underline">
+            Отправить ещё
+          </button>
+        </div>
+      ) : (
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+          <div>
+            <label className="text-sm font-medium text-foreground mb-1.5 block">Имя</label>
+            <input
+              type="text"
+              placeholder="Ваше имя"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className="w-full border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+            />
+          </div>
+          <div>
+            <label className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
+            <input
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="w-full border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+            />
+          </div>
+          <div>
+            <label className="text-sm font-medium text-foreground mb-1.5 block">Сообщение</label>
+            <textarea
+              rows={4}
+              placeholder="Расскажите, чем мы можем помочь..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              required
+              className="w-full border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all resize-none"
+            />
+          </div>
+          {status === "error" && (
+            <p className="text-destructive text-sm">Произошла ошибка. Попробуйте ещё раз.</p>
+          )}
+          <button
+            type="submit"
+            disabled={status === "sending"}
+            className="cloud-gradient text-white py-3 rounded-xl font-semibold hover:opacity-90 transition-all disabled:opacity-60"
+          >
+            {status === "sending" ? "Отправляем..." : "Отправить сообщение"}
+          </button>
+        </form>
       )}
     </div>
   );
